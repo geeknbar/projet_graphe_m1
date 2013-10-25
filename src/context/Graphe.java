@@ -28,7 +28,18 @@ public class Graphe
 		 return grapheToAffiche;
 	}
 	
-	
+
+	public boolean isEdgeInGraphe(Sommet s1, Sommet s2)
+	{
+		for (int i = 0; i <graphe.size() ; i++) 
+		{
+			if(graphe.get(i).isInEdges(s1, s2))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 	public boolean contains(Object o) 

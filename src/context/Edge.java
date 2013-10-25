@@ -19,6 +19,16 @@ public class Edge
 		listSommet.add(s2);
 	}
 
+	public boolean isInEdges(Sommet s1, Sommet s2)
+	{
+		if(listSommet.get(Edge.SOMMET_1).equals(s1) && listSommet.get(Edge.SOMMET_2).equals(s2))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 
 	public ArrayList<Sommet> getListSommet() 
 	{
