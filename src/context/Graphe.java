@@ -23,10 +23,26 @@ public class Graphe
 	public String toString()
 	{
 		String grapheToAffiche="";
-		grapheToAffiche= "Graphe [Nombre Arêtes = " + graphe.size() + ", Nombre Sommet=" + allSommet.size() + "]";
+		grapheToAffiche= "Graphe [Nombre Arêtes = " + graphe.size()/2 + ", Nombre Sommet=" + allSommet.size() + "]";
 		 
 		 return grapheToAffiche;
 	}
+	
+	
+
+
+	public boolean contains(Object o) 
+	{
+		for (int i = 0; i < allSommet.size(); i++) 
+		{
+			if(allSommet.get(i).getValue().equals(o))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	
 	public void addEdge(Edge edge)

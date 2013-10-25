@@ -29,6 +29,4 @@ public class Sommet
 	{
 		return "Sommet [value=" + value + "]";
 	}
-
-
 }

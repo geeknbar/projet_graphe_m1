@@ -36,12 +36,12 @@ public class ReadFile
 				graphe.addEdge(new Edge(new Sommet(ligneSplit[1]), new Sommet(ligneSplit[2])));
 				graphe.addEdge(new Edge(new Sommet(ligneSplit[2]), new Sommet(ligneSplit[1])));
 				
-				if(graphe.getAllSommet().contains(ligneSplit[1]))
+				if(!graphe.contains(ligneSplit[1]))
 				{
 					graphe.getAllSommet().add(new Sommet(ligneSplit[1]));
 				}
 				
-				if(graphe.getAllSommet().contains(ligneSplit[2]))
+				if(!graphe.contains(ligneSplit[2]))
 				{
 					graphe.getAllSommet().add(new Sommet(ligneSplit[2]));
 				}
