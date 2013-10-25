@@ -45,4 +45,11 @@ public class Edge
 	{
 		return SOMMET_2;
 	}
+
+
+	@Override
+	public String toString() 
+	{
+		return "Edge [Sommet 1 = " + this.getSommet(Edge.SOMMET_1) + "Sommet 2 = " + this.getSommet(Edge.SOMMET_2)+ "]";
+	}
 }

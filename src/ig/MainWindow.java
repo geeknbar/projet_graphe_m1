@@ -1,5 +1,9 @@
 package ig;
 
+import java.io.IOException;
+
+import fileRW.ReadFile;
+
 /**
  * @author Mickael
  *
@@ -12,8 +16,15 @@ public class MainWindow
 	 */
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-
+		ReadFile readFile = new ReadFile();
+		try 
+		{
+			readFile.readLines("./src/doc/graphe_hao.txt");
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		System.out.println(readFile.getGraphe().toString());
 	}
 
 }

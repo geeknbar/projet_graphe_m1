@@ -24,5 +24,11 @@ public class Sommet
 		this.value = value;
 	}
 
+	@Override
+	public String toString() 
+	{
+		return "Sommet [value=" + value + "]";
+	}
+
 
 }
