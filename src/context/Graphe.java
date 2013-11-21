@@ -42,11 +42,11 @@ public class Graphe
 	}
 
 
-	public boolean contains(Object o) 
+	public boolean contains(int o) 
 	{
 		for (int i = 0; i < allSommet.size(); i++) 
 		{
-			if(allSommet.get(i).getValue().equals(o))
+			if(allSommet.get(i).getValue()==o)
 			{
 				return true;
 			}

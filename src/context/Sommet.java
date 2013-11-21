@@ -7,19 +7,19 @@ package context;
 public class Sommet
 {
 
-	private Object value;
+	private int value;
 	
-	public Sommet(Object value)
+	public Sommet(int value)
 	{
 		this.value= value;
 	}
 
-	public Object getValue() 
+	public int getValue() 
 	{
 		return value;
 	}
 
-	public void setValue(Object value) 
+	public void setValue(int value) 
 	{
 		this.value = value;
 	}

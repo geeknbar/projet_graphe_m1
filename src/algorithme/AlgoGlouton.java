@@ -1,7 +1,10 @@
 package algorithme;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import context.Graphe;
 import context.Sommet;
@@ -57,7 +60,7 @@ public class AlgoGlouton
 			
 			//on initialise la liste des résultats partiel avec le sommet pris au hasard*
 			//*hasard : nous les prenons du premier au dernier. 
-			resultatPartiel.add(new Sommet(sommetRestants.get(i)));
+			resultatPartiel.add(new Sommet(sommetRestants.get(i).getValue()));
 			
 			findCliqueGlouton();
 			
@@ -65,25 +68,79 @@ public class AlgoGlouton
 			if(resultatPartiel.size() > resultatFinal.size())
 				resultatFinal= new ArrayList<Sommet>(resultatPartiel);
 		}
+		
+		System.out.println(resultatFinal.toString());
 	}
 
 
 	// pour trouver une clic, nous choisissons de prendre le premier
 	public void findCliqueGlouton()
 	{
+		HashMap<Integer, ArrayList<Integer>> mapSommetTemp = new HashMap<Integer, ArrayList<Integer>>();
 		//Pour tous les sommets du résultat partiel
 		for (int k = 0; k < resultatPartiel.size(); k++) 
 		{
+			ArrayList<Integer> listRestTemp = new ArrayList<Integer>();
+			
 			//Pour tous les sommets restants 
 			for (int j = 0; j < sommetRestants.size(); j++) 
 			{
 				Sommet sommetTmp = sommetRestants.get(j);
-
-
+				if(graphe.isEdgeInGraphe(sommetTmp, resultatPartiel.get(k)))
+				{
+					listRestTemp.add((Integer)sommetTmp.getValue());
+				}
 			}	
+			mapSommetTemp.put(new Integer(k), listRestTemp);
 		}
+		findSommetToAddClicMaximum(mapSommetTemp);
 	}
 
+	public void findSommetToAddClicMaximum(HashMap<Integer, ArrayList<Integer>> mapSommetTemp)
+	{
+		//si on trouve un sommet qui aggrandie la clic maximal, 
+		//on sort de la méthode pour y revenir au tour suivant
+		boolean clicFind = false;
+		
+		for(Entry<Integer, ArrayList<Integer>> entry : mapSommetTemp.entrySet()) 
+		{
+		    Integer cle = entry.getKey();
+		    ArrayList<Integer> sommetsAdjacents = entry.getValue();
+		    
+		    for (int i = 0; i < sommetsAdjacents.size(); i++) 
+		    {
+		    	int cptIsContenu = 0;
+		    	for(Entry<Integer, ArrayList<Integer>> entryTemp : mapSommetTemp.entrySet()) 
+				{
+		    		Integer cleTmp = entry.getKey();
+				    ArrayList<Integer> sommetsAdjacentsTmp = entry.getValue();
+				    
+		    		if(cle!=cleTmp)
+		    		{
+		    			if(!sommetsAdjacentsTmp.contains(sommetsAdjacents.get(i)))
+		    			{
+		    				cptIsContenu++;
+		    			}
+		    			
+		    		}
+				}
+		    	
+		    	if(cptIsContenu==0)
+		    	{
+		    		//ajouter new sommet de sommetsAdjacents.get(i) au bleu (c'est a dire a Resultatpartiel)
+		    		resultatPartiel.add(new Sommet(sommetsAdjacents.get(i)));
+		    		clicFind=true;		    		
+		    		break;
+		    	}
+
+		    	if(clicFind)
+		    	{
+		    		break;
+		    	}
+			}
+		}
+	}
+	
 
 	public ArrayList<Sommet> getResultatPartiel() 
 	{

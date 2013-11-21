@@ -33,17 +33,20 @@ public class ReadFile
 			if('e' == ligne.charAt(0))
 			{
 				String[] ligneSplit = ligne.split(" ");
-				graphe.addEdge(new Edge(new Sommet(ligneSplit[1]), new Sommet(ligneSplit[2])));
-				graphe.addEdge(new Edge(new Sommet(ligneSplit[2]), new Sommet(ligneSplit[1])));
+				int valueSplit1 = Integer.valueOf(ligneSplit[1]);
+				int valueSplit2 = Integer.valueOf(ligneSplit[2]);
 				
-				if(!graphe.contains(ligneSplit[1]))
+				graphe.addEdge(new Edge(new Sommet(valueSplit1), new Sommet(valueSplit2)));
+				graphe.addEdge(new Edge(new Sommet(valueSplit2), new Sommet(valueSplit1)));
+				
+				if(!graphe.contains(valueSplit1))
 				{
-					graphe.getAllSommet().add(new Sommet(ligneSplit[1]));
+					graphe.getAllSommet().add(new Sommet(valueSplit1));
 				}
 				
-				if(!graphe.contains(ligneSplit[2]))
+				if(!graphe.contains(valueSplit2))
 				{
-					graphe.getAllSommet().add(new Sommet(ligneSplit[2]));
+					graphe.getAllSommet().add(new Sommet(valueSplit2));
 				}
 			}
 		}

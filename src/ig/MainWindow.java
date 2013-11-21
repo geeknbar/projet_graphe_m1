@@ -2,6 +2,7 @@ package ig;
 
 import java.io.IOException;
 
+import algorithme.AlgoGlouton;
 import fileRW.ReadFile;
 
 /**
@@ -25,6 +26,10 @@ public class MainWindow
 			e.printStackTrace();
 		}
 		System.out.println(readFile.getGraphe().toString());
+		
+		AlgoGlouton a = new AlgoGlouton();
+		a.cliqueMaximumGlouton();
+		
 	}
 
 }
