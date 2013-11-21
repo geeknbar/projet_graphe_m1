@@ -16,10 +16,9 @@ public class AlgoGlouton
 	private ArrayList<Sommet> resultatPartiel;
 	private ArrayList<Sommet> sommetAdjacents;
 	private ArrayList<Sommet> sommetRestants;
+	private ArrayList<Sommet> sommetAParcourir;
 	private ArrayList<Sommet> resultatFinal;
 	
-	
-	private Sommet sommetInitial;
 	private Graphe graphe;
 	
 	
@@ -34,8 +33,7 @@ public class AlgoGlouton
 			e.printStackTrace();
 		}
 		graphe= readFile.getGraphe();
-		sommetRestants=graphe.getAllSommet();
-		resultatPartiel = new ArrayList<Sommet>();
+		sommetAParcourir=graphe.getAllSommet();
 		sommetAdjacents = new ArrayList<Sommet>();
 		resultatFinal = new ArrayList<Sommet>();
 	}
@@ -44,18 +42,33 @@ public class AlgoGlouton
 	
 	
 	
-	public void cliqueMaxGlouton()
+	public void cliqueMaximumGlouton()
 	{
 		//Pour tous les sommets du graphes
 		for (int i = 0; i < graphe.getAllSommet().size(); i++) 
 		{
-			sommetInitial = sommetRestants.get(i);
-			resultatPartiel.add(sommetInitial);
+			//on prend tous les sommet dans la liste des résultats restants
+			sommetRestants=new ArrayList<Sommet>(graphe.getAllSommet());
+			//on supprime le sommet inital courant.
+			sommetRestants.remove(i);
+			//on réinitialise la liste des résultat partiel a chaque fois 
+			//que l'on veut trouver une clic maximal
+			resultatPartiel = new ArrayList<Sommet>();
+			
+			//on initialise la liste des résultats partiel avec le sommet pris au hasard*
+			//*hasard : nous les prenons du premier au dernier. 
+			resultatPartiel.add(new Sommet(sommetRestants.get(i)));
+			
+			findCliqueGlouton();
+			
+			//si la clic est plus grande que la précédente, on la prend comme resultat final
+			if(resultatPartiel.size() > resultatFinal.size())
+				resultatFinal= new ArrayList<Sommet>(resultatPartiel);
 		}
 	}
 
 
-
+	// pour trouver une clic, nous choisissons de prendre le premier
 	public void findCliqueGlouton()
 	{
 		//Pour tous les sommets du résultat partiel
