@@ -13,6 +13,11 @@ public class Sommet
 	{
 		this.value= value;
 	}
+	
+	public Sommet(Sommet s)
+	{
+		this.value= s.getValue();
+	}
 
 	public int getValue() 
 	{

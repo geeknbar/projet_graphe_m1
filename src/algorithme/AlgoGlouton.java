@@ -1,7 +1,5 @@
 package algorithme;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -20,25 +18,32 @@ public class AlgoGlouton
 	private ArrayList<Sommet> resultatPartiel;
 	private ArrayList<Sommet> sommetAdjacents;
 	private ArrayList<Sommet> sommetRestants;
-	private ArrayList<Sommet> sommetAParcourir;
 	private ArrayList<Sommet> resultatFinal;
 	private HashMap<Integer, ArrayList<Sommet>> mapSommetTemp;
 	
+	
+	
 	private Graphe graphe;
+	private boolean endOfMainLoop;
 	
-	
+	/**
+	 * Constructeur
+	 * @param readFile
+	 */
 	public AlgoGlouton(ReadFile readFile)
 	{
 		graphe= readFile.getGraphe();
-		sommetAParcourir=graphe.getAllSommet();
 		sommetAdjacents = new ArrayList<Sommet>();
 		resultatFinal = new ArrayList<Sommet>();
+		endOfMainLoop=false;
 	}
 	
 	
 	
 	
-	
+	/**
+	 * 
+	 */
 	public void cliqueMaximumGlouton()
 	{
 		//Pour tous les sommets du graphes
@@ -64,6 +69,7 @@ public class AlgoGlouton
 			//lancement du traitement de la clic maximum pour chacun des sommets
 			findCliqueGlouton();
 
+			endOfMainLoop = false;
 			
 			//si la clic est plus grande que la précédente, on la prend comme resultat final
 			if(resultatPartiel.size() > resultatFinal.size())
@@ -74,49 +80,63 @@ public class AlgoGlouton
 	}
 
 
-	// pour trouver une clic, nous choisissons de prendre le premier
+	/**
+	 *  pour trouver une clic, nous choisissons de prendre le premier
+	 */
 	public void findCliqueGlouton()
 	{
-		while(true)
+		while(!endOfMainLoop)
 		{
 			ArrayList<Sommet> listRestTemp = new ArrayList<Sommet>();
-			//Pour tous les sommets restants 
+			
+			//on recupere le dernier sommet de la liste partiel (bleu)
+			Sommet lastElementPartialList= new Sommet(resultatPartiel.get(resultatPartiel.size()-1));
+			
+			sommetRestants=new ArrayList<Sommet>(graphe.getAllSommet());
+			//on enleve le sommet en cours parmis tous les sommets 
+			deleteSommetToRestant(lastElementPartialList.getValue());
+			
+			//Pour tous les sommets restants on cherche les sommet adjacents 
+			//au sommet 'lastElementPartialList'
 			for (int j = 0; j < sommetRestants.size(); j++) 
 			{
+
 				Sommet sommetTmp = sommetRestants.get(j);
 
 				if(graphe.isEdgeInGraphe(sommetTmp, resultatPartiel.get(resultatPartiel.size()-1)))
 				{
 					listRestTemp.add(sommetTmp);
 				}
-				mapSommetTemp.put(new Integer(resultatPartiel.get(resultatPartiel.size()-1).getValue()), listRestTemp);
 			}	
+			mapSommetTemp.put(new Integer(resultatPartiel.get(resultatPartiel.size()-1).getValue()), listRestTemp);
 			findSommetToAddClicMaximum();
 		}
 	}
 
+	
+	/**
+	 * Permet de trouver le sommet qui forme la première clic maximal
+	 */
 	public void findSommetToAddClicMaximum()
 	{
-		//si on trouve un sommet qui aggrandie la clic maximal, 
-		//on sort de la méthode pour y revenir au tour suivant
-		boolean clicFind = false;
+		ArrayList<Sommet> TOTO_TITI = new ArrayList<Sommet>();
 		
 		for(Entry<Integer, ArrayList<Sommet>> entry : mapSommetTemp.entrySet()) 
 		{
 		    Integer cle = entry.getKey();
-		    sommetAdjacents = entry.getValue();
+		    TOTO_TITI = entry.getValue();
 		    
-		    for (int i = 0; i < sommetAdjacents.size(); i++) 
+		    for (int i = 0; i < TOTO_TITI.size(); i++) 
 		    {
 		    	int cptIsContenu = 0;
 		    	for(Entry<Integer, ArrayList<Sommet>> entryTemp : mapSommetTemp.entrySet()) 
 				{
-		    		Integer cleTmp = entry.getKey();
-				    ArrayList<Sommet> sommetsAdjacentsTmp = entry.getValue();
+		    		Integer cleTmp = entryTemp.getKey();
+				    ArrayList<Sommet> sommetsAdjacentsTmp = entryTemp.getValue();
 				    
 		    		if(cle!=cleTmp)
 		    		{
-		    			if(!sommetsAdjacentsTmp.contains(sommetAdjacents.get(i)))
+		    			if(!sommetsAdjacentsTmp.contains(TOTO_TITI.get(i)))
 		    			{
 		    				cptIsContenu++;
 		    			}
@@ -127,20 +147,15 @@ public class AlgoGlouton
 		    	if(cptIsContenu==0)
 		    	{
 		    		//ajouter new sommet de sommetsAdjacents.get(i) au bleu (c'est a dire a Resultatpartiel)
-		    		if(sommetAdjacents.get(i)!=null)
+		    		if(TOTO_TITI.get(i)!=null)
 		    		{
-		    			resultatPartiel.add(new Sommet(sommetAdjacents.get(i).getValue()));
-		    			//sommetRestants.remove(sommetAdjacents.get(i));
+		    			resultatPartiel.add(new Sommet(TOTO_TITI.get(i).getValue()));
+		    			break;
 		    		}
-//		    		System.out.println("sommetsAdjacents.size() : "+sommetsAdjacents.size());
-//		    		System.out.println("sommetAParcourir.size() : "+sommetAParcourir.size());
-//		    		System.out.println("sommetRestants.size() : "+sommetRestants.size());
-
-		    		clicFind=true;		    		
 		    	}
-			    System.out.println(clicFind);
-		    	if(clicFind)
+		    	else
 		    	{
+		    		endOfMainLoop = true;
 		    		break;
 		    	}
 			}
@@ -149,6 +164,20 @@ public class AlgoGlouton
 	}
 	
 
+	
+	
+	void deleteSommetToRestant(int valeur)
+	{
+		for (int i = 0; i < sommetRestants.size(); i++) 
+		{
+			if(sommetRestants.get(i).getValue() == valeur)
+			{
+				sommetRestants.remove(i);
+				break;				
+			}
+		}
+	}
+	
 	public ArrayList<Sommet> getResultatPartiel() 
 	{
 		return resultatPartiel;
@@ -206,5 +235,33 @@ public class AlgoGlouton
 	public void setResultatFinal(ArrayList<Sommet> resultatFinal)
 	{
 		this.resultatFinal = resultatFinal;
+	}
+
+
+
+
+	public HashMap<Integer, ArrayList<Sommet>> getMapSommetTemp() {
+		return mapSommetTemp;
+	}
+
+
+
+
+	public void setMapSommetTemp(HashMap<Integer, ArrayList<Sommet>> mapSommetTemp) {
+		this.mapSommetTemp = mapSommetTemp;
+	}
+
+
+
+
+	public boolean isEndOfMainLoop() {
+		return endOfMainLoop;
+	}
+
+
+
+
+	public void setEndOfMainLoop(boolean endOfMainLoop) {
+		this.endOfMainLoop = endOfMainLoop;
 	}
 }
