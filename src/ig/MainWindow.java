@@ -20,14 +20,14 @@ public class MainWindow
 		ReadFile readFile = new ReadFile();
 		try 
 		{
-			readFile.readLines("./src/doc/graphe_hao.txt");
+			readFile.readLines("./src/doc/simple.txt");
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
 		System.out.println(readFile.getGraphe().toString());
 		
-		AlgoGlouton a = new AlgoGlouton();
+		AlgoGlouton a = new AlgoGlouton(readFile);
 		a.cliqueMaximumGlouton();
 		
 	}
