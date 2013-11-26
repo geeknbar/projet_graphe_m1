@@ -7,3 +7,5 @@ Graphe 250, Clique de 35 trouvé, Clique optimum 44, en min
 
 
 Graphe 500, Clique de XX trouvé, Clique optimum 57, trop long entre chaque tour.
+Test avec 4 tour : 33 sommets
+[Sommet [value=2], Sommet [value=1], Sommet [value=3], Sommet [value=5], Sommet [value=7], Sommet [value=8], Sommet [value=9], Sommet [value=11], Sommet [value=13], Sommet [value=14], Sommet [value=15], Sommet [value=17], Sommet [value=22], Sommet [value=32], Sommet [value=41], Sommet [value=53], Sommet [value=65], Sommet [value=74], Sommet [value=86], Sommet [value=97], Sommet [value=109], Sommet [value=116], Sommet [value=132], Sommet [value=137], Sommet [value=147], Sommet [value=166], Sommet [value=173], Sommet [value=179], Sommet [value=226], Sommet [value=239], Sommet [value=284], Sommet [value=319], Sommet [value=387]]
