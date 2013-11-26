@@ -20,7 +20,7 @@ public class MainWindow
 		ReadFile readFile = new ReadFile();
 		try 
 		{
-			readFile.readLines("./src/doc/simple4.txt");
+			readFile.readLines("./src/doc/graphe_500.txt");
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
