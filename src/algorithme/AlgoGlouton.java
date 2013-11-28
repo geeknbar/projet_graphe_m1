@@ -20,6 +20,7 @@ public class AlgoGlouton
 	private ArrayList<Sommet> sommetRestants;
 	private ArrayList<Sommet> resultatFinal;
 	private HashMap<Integer, ArrayList<Sommet>> mapSommetTemp;
+	private ArrayList<Sommet> sommetPotentiel;
 
 
 
@@ -36,6 +37,8 @@ public class AlgoGlouton
 		sommetAdjacents = new ArrayList<Sommet>();
 		resultatFinal = new ArrayList<Sommet>();
 		endOfMainLoop=false;
+		graphe.findAllAdjacenceSommet();
+		sommetPotentiel = new ArrayList<Sommet>();
 	}
 
 
@@ -71,10 +74,11 @@ public class AlgoGlouton
 			findCliqueGlouton();
 
 			endOfMainLoop = false;
-
+			System.out.println(resultatPartiel.toString());
 			//si la clic est plus grande que la pr�c�dente, on la prend comme resultat final
 			if(resultatPartiel.size() > resultatFinal.size())
 				resultatFinal= new ArrayList<Sommet>(resultatPartiel);
+
 		}
 
 		System.out.println(resultatFinal.toString());
@@ -109,7 +113,7 @@ public class AlgoGlouton
 				}
 			}	
 			mapSommetTemp.put(new Integer(resultatPartiel.get(resultatPartiel.size()-1).getValue()), listRestTemp);
-			findSommetToAddClicMaximum();
+			findSommetToAddClicMaximumAlgo2();
 		}
 	}
 
@@ -127,10 +131,10 @@ public class AlgoGlouton
 			//cf pasNormal => break a la fin du fort 
 			Integer cle = entry.getKey();
 			firstSommetListeAdjacent = entry.getValue();
-			
+
 			//sommetTrouve correspond si un sommet à été ajouté ou non à la liste des resultatPartiel
 			boolean sommetTrouve = false;
-			
+
 			//on parcours tous les sommets de la liste d'ajacence du premier sommet
 			for (int i = 0; i < firstSommetListeAdjacent.size(); i++) 
 			{
@@ -139,7 +143,7 @@ public class AlgoGlouton
 				// si > 0 alors au moins dans une liste on n'a pas de sommet en commun
 				int cmpt =0;
 				ArrayList<Sommet> firstSommetListeAdjacentTemp = new ArrayList<Sommet>();
-				
+
 				//pour chaque sommet on va chercher dans la map un sommet en commum avec notre liste du premier sommet
 				for(Entry<Integer, ArrayList<Sommet>> entryTemp : mapSommetTemp.entrySet()) 
 				{
@@ -175,6 +179,79 @@ public class AlgoGlouton
 
 	}
 
+	/**
+	 * Permet de trouver le sommet qui forme la premi�re clic maximal
+	 * avec comme choix de prendre le sommet adjacent qui à le plus de sommet adjacents
+	 */
+	public void findSommetToAddClicMaximumAlgo2(){
+		ArrayList<Sommet> firstSommetListeAdjacent = new ArrayList<Sommet>();
+
+		for(Entry<Integer, ArrayList<Sommet>> entry : mapSommetTemp.entrySet()) 
+		{
+			//on prend la liste d'ajacence du premier sommet des resultats partiel
+			//a améliorer car on break après le premier parcours...
+			//cf pasNormal => break a la fin du fort 
+			Integer cle = entry.getKey();
+			firstSommetListeAdjacent = entry.getValue();
+
+			//sommetTrouve correspond si un sommet à été ajouté ou non à la liste des resultatPartiel
+			boolean sommetTrouve = false;
+
+			//on parcours tous les sommets de la liste d'ajacence du premier sommet
+			for (int i = 0; i < firstSommetListeAdjacent.size(); i++) 
+			{
+
+				//compteur si = 0 alors on a trouvé un sommet en commun dans chaque liste
+				// si > 0 alors au moins dans une liste on n'a pas de sommet en commun
+				int cmpt =0;
+				ArrayList<Sommet> firstSommetListeAdjacentTemp = new ArrayList<Sommet>();
+
+				//pour chaque sommet on va chercher dans la map un sommet en commum avec notre liste du premier sommet
+				for(Entry<Integer, ArrayList<Sommet>> entryTemp : mapSommetTemp.entrySet()) 
+				{
+					Integer cleTemp = entryTemp.getKey();
+					firstSommetListeAdjacentTemp = entryTemp.getValue();
+					if(cle!=cleTemp){
+						//si on ne trouve pas de sommet contenu dans les deux liste en cours on incrémente le compteur
+						//voir si on ne peut pas break pour aller plus vite
+						if(!firstSommetListeAdjacentTemp.contains(firstSommetListeAdjacent.get(i))){
+							cmpt ++;
+						}
+
+					}
+				}
+				//si le compteur est à 0 c'est qu'on a trouvé pour chaque liste de la map
+				//sinon le compteur serait >0
+				if(cmpt == 0){
+					Sommet s = new Sommet(firstSommetListeAdjacent.get(0).getValue());
+					Sommet s2 = new Sommet(0);
+					//on parcours l'ensemble des sommet potentiel trouvé pour prendre celui qi a le plus de sommet adjacents
+					for (int j = 1; j < firstSommetListeAdjacent.size(); j++) {
+						s2 = new Sommet(firstSommetListeAdjacent.get(j).getValue());
+						if(graphe.getNumberSommetAdj(s2) > graphe.getNumberSommetAdj(s)){
+								s = new Sommet(s2.getValue());
+								System.out.println(s.getValue());
+						}
+					}
+					if(!isSommetInResultPartial(resultatPartiel,s)){
+						resultatPartiel.add(s);
+						sommetTrouve =true;
+					}
+
+					break;
+				}
+			}
+
+			//si on ne trouve pas de sommet c'est qu'on est arrivé à une clique maximum donc on passe au tour suivant
+			if(!sommetTrouve){
+				endOfMainLoop = true;
+			}
+
+			//pasNormal, break pour prendre uniquement la liste d'ajascence du premier sommet de resultatPartiel
+			break;
+
+		}
+	}
 
 	void deleteSommetToRestant(int valeur)
 	{
@@ -186,6 +263,18 @@ public class AlgoGlouton
 				break;				
 			}
 		}
+	}
+
+	//methode pour savoir si un sommet est contenu dans le resultat partiel
+	//sert dans l'algo2
+	public boolean isSommetInResultPartial(ArrayList<Sommet> resultat, Sommet s){
+		boolean estContenu = false;
+		for (int i = 0; i < resultat.size(); i++) {
+			if(resultat.get(i).getValue() == s.getValue()){
+				estContenu = true;
+			}
+		}
+		return estContenu;
 	}
 
 	public ArrayList<Sommet> getResultatPartiel() 

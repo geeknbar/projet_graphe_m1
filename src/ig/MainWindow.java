@@ -20,14 +20,18 @@ public class MainWindow
 		ReadFile readFile = new ReadFile();
 		try 
 		{
-			readFile.readLines("./src/doc/graphe_500.txt");
+			
+//			readFile.readLines("./src/doc/simple.txt");
+			readFile.readLines("./src/doc/graphe_125.txt");
+//			readFile.readLines("./src/doc/graphe_250.txt");
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
 		System.out.println(readFile.getGraphe().toString());
-		
+
 		AlgoGlouton a = new AlgoGlouton(readFile);
+		a.getGraphe().showTabSommetAdj();
 		a.cliqueMaximumGlouton();
 		
 	}
