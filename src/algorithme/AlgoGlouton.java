@@ -20,9 +20,6 @@ public class AlgoGlouton
 	private ArrayList<Sommet> sommetRestants;
 	private ArrayList<Sommet> resultatFinal;
 	private HashMap<Integer, ArrayList<Sommet>> mapSommetTemp;
-	private ArrayList<Sommet> sommetPotentiel;
-
-
 
 	private Graphe graphe;
 	private boolean endOfMainLoop;
@@ -38,7 +35,6 @@ public class AlgoGlouton
 		resultatFinal = new ArrayList<Sommet>();
 		endOfMainLoop=false;
 		graphe.findAllAdjacenceSommet();
-		sommetPotentiel = new ArrayList<Sommet>();
 	}
 
 
@@ -49,6 +45,7 @@ public class AlgoGlouton
 	 */
 	public void cliqueMaximumGlouton()
 	{
+		long startTime = System.currentTimeMillis();
 		//Pour tous les sommets du graphes
 		for (int i = 0; i < graphe.getAllSommet().size(); i++) 
 		{
@@ -80,9 +77,10 @@ public class AlgoGlouton
 				resultatFinal= new ArrayList<Sommet>(resultatPartiel);
 
 		}
-
+		long endTime = System.currentTimeMillis();
 		System.out.println(resultatFinal.toString());
 		System.out.println("La clique est de : "+resultatFinal.size() + " sommets");
+		System.err.println("Algo execute en "+(endTime-startTime)+" ms");
 	}
 
 
@@ -113,7 +111,8 @@ public class AlgoGlouton
 				}
 			}	
 			mapSommetTemp.put(new Integer(resultatPartiel.get(resultatPartiel.size()-1).getValue()), listRestTemp);
-			findSommetToAddClicMaximumAlgo2();
+			findSommetToAddClicMaximum();
+			//findSommetToAddClicMaximumAlgo2();
 		}
 	}
 
@@ -121,7 +120,8 @@ public class AlgoGlouton
 	/**
 	 * Permet de trouver le sommet qui forme la premi�re clic maximal
 	 */
-	public void findSommetToAddClicMaximum(){
+	public void findSommetToAddClicMaximum()
+	{
 		ArrayList<Sommet> firstSommetListeAdjacent = new ArrayList<Sommet>();
 
 		for(Entry<Integer, ArrayList<Sommet>> entry : mapSommetTemp.entrySet()) 
@@ -173,6 +173,7 @@ public class AlgoGlouton
 			}
 
 			//pasNormal, break pour prendre uniquement la liste d'ajascence du premier sommet de resultatPartiel
+			System.err.println("BREAK !!!!!!!!!!");
 			break;
 
 		}
