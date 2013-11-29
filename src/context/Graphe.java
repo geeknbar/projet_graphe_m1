@@ -1,6 +1,7 @@
 package context;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * @author Mickael
@@ -8,116 +9,88 @@ import java.util.ArrayList;
  */
 public class Graphe
 {
-	private ArrayList<Edge> graphe;
-	private ArrayList<Sommet> allSommet;
-	private int allSommetAdj[] ;
-
+	//map contenant : clef = valeur sommet / valeur = liste des sommets adjacents
+	private TreeMap<Integer,ArrayList<Integer>> mapGraphe;
+	//liste contenant tous les sommets
+	private ArrayList<Integer> allSommet;
+	//nombre d'arretes
+	private int nbEdge;
+	
+	/**
+	 * constructeur sans parametres
+	 */
 	public Graphe() 
 	{
-		graphe = new ArrayList<Edge>();
-		allSommet =new ArrayList<Sommet>();
+		allSommet =new ArrayList<Integer>();
+		mapGraphe=new TreeMap<Integer,ArrayList<Integer>>();
 	}
 
-
-
+	/**
+	 * permet de construire une tree map contenant : clef sommet / value liste sommet adjacents
+	 * @param sommet
+	 * @param EdgeSommet
+	 */
+	private void implementGraphe(Integer sommet, Integer EdgeSommet)
+	{
+		ArrayList<Integer> adjacentTmp;
+		
+		//on ajoute le sommet adjacent au sommet en cours
+		adjacentTmp = (mapGraphe.get(sommet)!=null) ? new ArrayList<Integer>(mapGraphe.get(sommet)) : new ArrayList<Integer>();
+		if(!adjacentTmp.contains(EdgeSommet)) adjacentTmp.add(EdgeSommet);
+		mapGraphe.put(sommet, new ArrayList<Integer> (adjacentTmp));
+	}
+	
+	/**
+	 * Construit la liste des sommets 
+	 */
+	public void buildAllSommet()
+	{
+		allSommet= new ArrayList<Integer>(getMapGraphe().keySet());
+	}
+	
+	/**
+	 * construction du graphe
+	 * @param sommet1
+	 * @param sommet2
+	 */
+	public void buildGraphe(Integer sommet1, Integer sommet2)
+	{
+		implementGraphe(sommet1,sommet2);
+		implementGraphe(sommet2,sommet1);
+		nbEdge++;
+	}
+	
 	@Override
 	public String toString()
 	{
 		String grapheToAffiche="";
-		grapheToAffiche= "Graphe [Nombre Ar�tes = " + graphe.size()/2 + ", Nombre Sommet=" + allSommet.size() + "]";
-
+		grapheToAffiche= "Graphe [Nombre Aretes = " + nbEdge + ", Nombre Sommet=" + allSommet.size() + "]";
+		
 		return grapheToAffiche;
 	}
 
-
-	public boolean isEdgeInGraphe(Sommet s1, Sommet s2)
-	{
-		for (int i = 0; i <graphe.size() ; i++) 
-		{
-			if(graphe.get(i).isInEdges(s1, s2))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-	public boolean contains(int o) 
-	{
-		for (int i = 0; i < allSommet.size(); i++) 
-		{
-			if(allSommet.get(i).getValue()==o)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/** Permet d'ajouter pour tous les sommets leurs sommets adjacents
-	 * 
-	 * @param valeur
+	
+	/**
+	 * Getters & setters
 	 */
-	public void findAllAdjacenceSommet(){
-		allSommetAdj = new int[allSommet.size()+1];
-		for (int i = 0; i < allSommet.size(); i++) 
-		{
-			for (int j = 0; j < allSommet.size(); j++) 
-			{
-				if(this.isEdgeInGraphe(allSommet.get(i), allSommet.get(j) ))
-				{
-					allSommetAdj[allSommet.get(i).getValue()]++;
-				}	
-			}
-
-		}	
-	}
-
-	//permet d'avoir la valeur de sommet adjacent d'un sommet donné
-	public int getNumberSommetAdj(Sommet s){
-		return allSommetAdj[s.getValue()];
-	}
-
-	public int[] getAllSommetAdj() {
-		return allSommetAdj;
-	}
-
-	public void showTabSommetAdj(){
-		for (int i = 0; i < allSommetAdj.length; i++) 
-		{
-			System.out.println(i +" " +allSommetAdj[i]);
-		}
-	}
-
-	public void addEdge(Edge edge)
-	{
-		graphe.add(edge);
-	}
-
-	public void addSommet(Sommet sommet)
-	{
-		allSommet.add(sommet);
-	}
-
-
-	public ArrayList<Edge> getGraphe() 
-	{
-		return graphe;
-	}
-
-	public void setGraphe(ArrayList<Edge> graphe)
-	{
-		this.graphe = graphe;
-	}
-
-	public ArrayList<Sommet> getAllSommet()
+	
+	public ArrayList<Integer> getAllSommet()
 	{
 		return allSommet;
 	}
 
-	public void setAllSommet(ArrayList<Sommet> allSommet) 
+	public void setAllSommet(ArrayList<Integer> allSommet) 
 	{
 		this.allSommet = allSommet;
+	}
+
+	public TreeMap<Integer, ArrayList<Integer>> getMapGraphe() 
+	{
+		return mapGraphe;
+	}
+
+	public void setMapGraphe(TreeMap<Integer, ArrayList<Integer>> mapGraphe) 
+	{
+		this.mapGraphe = mapGraphe;
 	}
 }

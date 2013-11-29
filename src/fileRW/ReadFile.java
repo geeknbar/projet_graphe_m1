@@ -5,9 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 
-import context.Edge;
 import context.Graphe;
-import context.Sommet;
 
 
 public class ReadFile 
@@ -36,18 +34,9 @@ public class ReadFile
 				int valueSplit1 = Integer.valueOf(ligneSplit[1]);
 				int valueSplit2 = Integer.valueOf(ligneSplit[2]);
 				
-				graphe.addEdge(new Edge(new Sommet(valueSplit1), new Sommet(valueSplit2)));
-				graphe.addEdge(new Edge(new Sommet(valueSplit2), new Sommet(valueSplit1)));
-				
-				if(!graphe.contains(valueSplit1))
-				{
-					graphe.getAllSommet().add(new Sommet(valueSplit1));
-				}
-				
-				if(!graphe.contains(valueSplit2))
-				{
-					graphe.getAllSommet().add(new Sommet(valueSplit2));
-				}
+				//Construction du graphe
+				graphe.buildGraphe(valueSplit1, valueSplit2);
+				graphe.buildAllSommet();
 			}
 		}
 	}
