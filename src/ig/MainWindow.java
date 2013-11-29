@@ -21,9 +21,11 @@ public class MainWindow
 		try 
 		{
 			
-			//readFile.readLines("./src/doc/simple.txt");
-			//readFile.readLines("./src/doc/graphe_125.txt");
-			readFile.readLines("./src/doc/graphe_500.txt");
+//			readFile.readLines("./src/doc/simple4.txt");
+//			readFile.readLines("./src/doc/graphe_125.txt");
+//			readFile.readLines("./src/doc/graphe_250.txt");
+//			readFile.readLines("./src/doc/graphe_500.txt");
+			readFile.readLines("./src/doc/graphe_500_5.txt");
 			//readFile.readLines("./src/doc/graphe_2000.txt");
 		} catch (IOException e) 
 		{
