@@ -35,7 +35,7 @@ public class Graphe
 		ArrayList<Integer> adjacentTmp;
 		
 		//on ajoute le sommet adjacent au sommet en cours
-		adjacentTmp = (mapGraphe.get(sommet)!=null) ? new ArrayList<Integer>(mapGraphe.get(sommet)) : new ArrayList<Integer>();
+		adjacentTmp = (mapGraphe.get(sommet)!=null) ? mapGraphe.get(sommet) : new ArrayList<Integer>();
 		if(!adjacentTmp.contains(EdgeSommet)) adjacentTmp.add(EdgeSommet);
 		mapGraphe.put(sommet, new ArrayList<Integer> (adjacentTmp));
 	}

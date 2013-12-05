@@ -21,8 +21,8 @@ public class MainWindow
 		try 
 		{
 			
-//			readFile.readLines("./src/doc/simple4.txt");
-//			readFile.readLines("./src/doc/graphe_125.txt");
+			//readFile.readLines("./src/doc/simple4.txt");
+			readFile.readLines("./src/doc/graphe_125.txt");
 //			readFile.readLines("./src/doc/graphe_250.txt");
 //			readFile.readLines("./src/doc/graphe_500.txt");
 //			readFile.readLines("./src/doc/graphe_500_5.txt");
@@ -32,7 +32,7 @@ public class MainWindow
 //			readFile.readLines("./src/doc/hamming8-4.txt");//resultat parfait algo2
 //			readFile.readLines("./src/doc/keller4.txt");//resultat parfait algo2
 //			readFile.readLines("./src/doc/MANN_a27.txt");//125/126 algo2
-//			readFile.readLines("./src/doc/p_hat300-1.tkt");//resultat parfait algo2
+			//readFile.readLines("./src/doc/p_hat300-1.tkt");//resultat parfait algo2
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
