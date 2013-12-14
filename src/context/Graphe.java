@@ -43,9 +43,10 @@ public class Graphe
 	/**
 	 * Construit la liste des sommets 
 	 */
-	public void buildAllSommet()
+	public int buildAllSommet()
 	{
 		allSommet= new ArrayList<Integer>(getMapGraphe().keySet());
+		return allSommet.size();
 	}
 	
 	/**

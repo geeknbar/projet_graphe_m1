@@ -20,7 +20,7 @@ public class ReadFile
 
 	}
 
-	public void readLines(String pathS) throws IOException
+	public int readLines(String pathS) throws IOException
 	{
 		setPathSource(pathS);
 		graphe = new Graphe();
@@ -36,9 +36,9 @@ public class ReadFile
 				
 				//Construction du graphe
 				graphe.buildGraphe(valueSplit1, valueSplit2);
-				graphe.buildAllSommet();
 			}
 		}
+		return graphe.buildAllSommet();
 	}
 
 	public void setPathSource(String pathS)
@@ -46,7 +46,8 @@ public class ReadFile
 		pathSource = Paths.get(pathS);
 	}
 
-	public Graphe getGraphe() {
+	public Graphe getGraphe() 
+	{
 		return graphe;
 	}
 
