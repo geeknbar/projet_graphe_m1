@@ -1,13 +1,12 @@
 package algorithme;
 
-import ig.MainWindow;
 import context.IndiceOfCalcul;
 import fileRW.ReadFile;
 
 public class AlgoGloutonThread extends Thread 
 {
 	private ReadFile file;
-	IndiceOfCalcul indiceToCalcul;
+	private IndiceOfCalcul indiceToCalcul;
 	
 	public AlgoGloutonThread(ReadFile f, IndiceOfCalcul i) 
 	{
@@ -19,6 +18,6 @@ public class AlgoGloutonThread extends Thread
 	{
 		AlgoGlouton a = new AlgoGlouton(file, indiceToCalcul);
 		a.cliqueMaximumGlouton();
-		MainWindow.allResult.put(a.getResultatFinal().size(),a);
+		GlobalAlgo.allResult.put(a.getResultatFinal().size(),a);
 	}
 }
