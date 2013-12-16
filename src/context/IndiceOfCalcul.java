@@ -1,5 +1,9 @@
 package context;
 
+/**
+ * Class permettant de découper les algorithmes pour les threads
+ *
+ */
 public class IndiceOfCalcul 
 {
 	private int debut;

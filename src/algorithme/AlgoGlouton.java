@@ -10,7 +10,7 @@ import context.IndiceOfCalcul;
 import fileRW.ReadFile;
 
 /**
- * @author Mickael
+ * class representant les algorithmes pour trouver la clique maximal
  *
  */
 public class AlgoGlouton 
@@ -49,14 +49,14 @@ public class AlgoGlouton
 		for (int i = indice.getDebut(); i < indice.getFin(); i++) 
 		{
 			//System.out.println("tour : "+ i);
-			//on prend tous les sommet dans la liste des r�sultats restants
+			//on prend tous les sommet dans la liste des resultats restants
 			sommetRestants=graphe.getAllSommet();
 
-			//on r�initialise la liste des r�sultat partiel a chaque fois 
+			//on r�initialise la liste des resultat partiel a chaque fois 
 			//que l'on veut trouver une clic maximal
 			resultatPartiel = new ArrayList<Integer>();
 
-			//on initialise la liste des r�sultats partiel avec le sommet pris au hasard*
+			//on initialise la liste des resultats partiel avec le sommet pris au hasard*
 			//*hasard : nous les prenons du premier au dernier. 
 			resultatPartiel.add(sommetRestants.get(i));
 
@@ -69,7 +69,7 @@ public class AlgoGlouton
 
 			endOfMainLoop = false;
 			//System.out.println(resultatPartiel.toString());
-			//si la clic est plus grande que la pr�c�dente, on la prend comme resultat final
+			//si la clic est plus grande que la precedente, on la prend comme resultat final
 			if(resultatPartiel.size() > resultatFinal.size())
 				resultatFinal= new ArrayList<Integer>(resultatPartiel);
 
@@ -104,7 +104,7 @@ public class AlgoGlouton
 
 
 	/**
-	 * Permet de trouver le sommet qui forme la premi�re clic maximal
+	 * Permet de trouver le sommet qui forme la premiere clic maximal
 	 */
 	public void findSommetToAddClicMaximum()
 	{
@@ -168,7 +168,7 @@ public class AlgoGlouton
 	}
 
 	/**
-	 * Permet de trouver le sommet qui forme la premi�re clic maximal
+	 * Permet de trouver le sommet qui forme la premiere clic maximal
 	 * avec comme choix de prendre le sommet adjacent qui à le plus de sommet adjacents
 	 */
 	public void findSommetToAddClicMaximumAlgo2()
@@ -239,7 +239,7 @@ public class AlgoGlouton
 				endOfMainLoop = true;
 			}
 
-			//pasNormal, break pour prendre uniquement la liste d'ajascence du premier sommet de resultatPartiel
+			//break pour prendre uniquement la liste d'ajascence du premier sommet de resultatPartiel
 			break;
 
 		}

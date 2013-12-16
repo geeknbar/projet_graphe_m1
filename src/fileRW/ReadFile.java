@@ -9,7 +9,10 @@ import java.util.List;
 import algorithme.GlobalAlgo;
 import context.Graphe;
 
-
+/**
+ * Class representant l'outil permettant de lire les fichiers contenant les graphes
+ *
+ */
 public class ReadFile 
 {
 

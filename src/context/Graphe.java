@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
- * @author Mickael
+ * Class representant le graphe
  *
  */
 public class Graphe

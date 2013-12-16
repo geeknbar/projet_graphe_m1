@@ -7,6 +7,10 @@ import java.util.TreeMap;
 import context.IndiceOfCalcul;
 import fileRW.ReadFile;
 
+/**
+ * Class permettant de lancer l'algorithme glouton
+ *
+ */
 public class GlobalAlgo 
 {
 	private static IndiceOfCalcul tabIndices[];
@@ -29,7 +33,7 @@ public class GlobalAlgo
 	{
 		//Variable contenant le resultat a afficher
 		result="";
-		//récuperation du chemin du fichier a chager
+		//recuperation du chemin du fichier a chager
 		String pathFile= path;
 		//nombre de processeur de la machine
 		int nbProc = Runtime.getRuntime().availableProcessors();
@@ -73,7 +77,7 @@ public class GlobalAlgo
 			tabIndices[0]=new IndiceOfCalcul(0, sizeGraphe);
 		}
 
-		//on attend la fin de tous les thread pour choisir la meilleur clic trouvée parmis tous 
+		//on attend la fin de tous les thread pour choisir la meilleur clic trouvee parmis tous 
 		while(!Thread.State.TERMINATED.equals(agt.getState()));
 		
 		allResult.lastEntry().getValue().display();
