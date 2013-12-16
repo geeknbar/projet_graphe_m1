@@ -27,11 +27,16 @@ public class GlobalAlgo
 	 */
 	public static void launchAlgo(String path)
 	{
+		//Variable contenant le resultat a afficher
 		result="";
+		//récuperation du chemin du fichier a chager
 		String pathFile= path;
+		//nombre de processeur de la machine
 		int nbProc = Runtime.getRuntime().availableProcessors();
+		//taille du graphe
 		int sizeGraphe = 0;
 		ReadFile readFile = new ReadFile();
+		
 		allResult = new TreeMap<Integer,AlgoGlouton>();
 		try 
 		{
@@ -46,6 +51,7 @@ public class GlobalAlgo
 
 		long startTime = System.currentTimeMillis();
 		
+		//si la machine possede plus de 4 coeur, on utilise le multithread
 		if(nbProc>= NB_PROC_MINIM_TO_THREAD)
 		{
 			tabIndices = new IndiceOfCalcul[nbProc];
@@ -67,7 +73,7 @@ public class GlobalAlgo
 			tabIndices[0]=new IndiceOfCalcul(0, sizeGraphe);
 		}
 
-		
+		//on attend la fin de tous les thread pour choisir la meilleur clic trouvée parmis tous 
 		while(!Thread.State.TERMINATED.equals(agt.getState()));
 		
 		allResult.lastEntry().getValue().display();

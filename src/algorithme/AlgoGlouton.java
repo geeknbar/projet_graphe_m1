@@ -179,7 +179,6 @@ public class AlgoGlouton
 		{
 			//on prend la liste d'ajacence du premier sommet des resultats partiel
 			//a améliorer car on break après le premier parcours...
-			//cf pasNormal => break a la fin du fort 
 			Integer cle = entry.getKey();
 			firstSommetListeAdjacent = entry.getValue();
 			//sommetTrouve correspond si un sommet à été ajouté ou non à la liste des resultatPartiel

@@ -3,6 +3,12 @@ package algorithme;
 import context.IndiceOfCalcul;
 import fileRW.ReadFile;
 
+
+/**
+ * class permettant de lancer un traitement par coeur du processeur
+ * @author Mickael
+ *
+ */
 public class AlgoGloutonThread extends Thread 
 {
 	private ReadFile file;
