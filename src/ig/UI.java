@@ -26,11 +26,10 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.SwingConstants;
 
-public class UI extends JFrame implements ActionListener{
+import algorithme.GlobalAlgo;
 
-	/**
-	 * 
-	 */
+public class UI extends JFrame implements ActionListener
+{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField graphFilePath;
@@ -62,7 +61,7 @@ public class UI extends JFrame implements ActionListener{
 	 */
 	public UI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 550, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,6 +108,7 @@ public class UI extends JFrame implements ActionListener{
 		horizontalBox_Algo.add(horizontalStrutAlgo);
 		
 		rdbtnAlgo1 = new JRadioButton("Algorithm 1");
+		rdbtnAlgo1.setSelected(true);
 		horizontalBox_Algo.add(rdbtnAlgo1);
 		
 		Component horizontalStrut_Algo2 = Box.createHorizontalStrut(20);
@@ -132,9 +132,11 @@ public class UI extends JFrame implements ActionListener{
 		panel_Results.add(lblResults, BorderLayout.NORTH);
 		
 		textAreaResults = new JTextArea();
+		textAreaResults.setEditable(false);
 		
 		JScrollPane scroll = new JScrollPane(textAreaResults);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panel_Results.add(scroll, BorderLayout.CENTER);
 				
 		JPanel panel_Action = new JPanel();
@@ -174,7 +176,11 @@ public class UI extends JFrame implements ActionListener{
 			}else if (!rdbtnAlgo1.isSelected() && !rdbtnAlgo2.isSelected()){
 				JOptionPane.showMessageDialog(this, "Please choose an algorithm to proceed algorithm");
 			}else{
-				//Call Algorithme
+				GlobalAlgo.result="";
+				GlobalAlgo.algo = (rdbtnAlgo1.isSelected()) ? 1 : 2;
+				GlobalAlgo.launchAlgo(graphFilePath.getText());
+				textAreaResults.setText(GlobalAlgo.result);
+				validate();
 			}
 		}
 		if (e.getSource() == btn_quit) {

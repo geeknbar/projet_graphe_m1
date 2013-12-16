@@ -1,10 +1,12 @@
 package fileRW;
 
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 
+import algorithme.GlobalAlgo;
 import context.Graphe;
 
 
@@ -22,6 +24,8 @@ public class ReadFile
 
 	public int readLines(String pathS) throws IOException
 	{
+		long startTime = System.currentTimeMillis();
+		
 		setPathSource(pathS);
 		graphe = new Graphe();
 		
@@ -38,6 +42,9 @@ public class ReadFile
 				graphe.buildGraphe(valueSplit1, valueSplit2);
 			}
 		}
+		long endTime = System.currentTimeMillis();
+		GlobalAlgo.loadTime=(endTime-startTime);
+		
 		return graphe.buildAllSommet();
 	}
 

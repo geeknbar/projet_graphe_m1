@@ -1,5 +1,6 @@
 package algorithme;
 
+
 import java.io.IOException;
 import java.util.TreeMap;
 
@@ -13,26 +14,21 @@ public class GlobalAlgo
 	
 	private final static int NB_PROC_MINIM_TO_THREAD=4;
 	public static TreeMap<Integer,AlgoGlouton> allResult;
+	public static String result;
+	public static int algo;
+	public static long loadTime;
+	public static long algoTime;
 	
 	
-//	public static String pathFile="./src/doc/simple4.txt";
-//	public static String pathFile="./src/doc/graphe_125.txt";
-	public static String pathFile="./src/doc/graphe_250.txt";
-//	public static String pathFile="./src/doc/graphe_500.txt";
-//	public static String pathFile="./src/doc/graphe_500_5.txt";
-//	public static String pathFile="./src/doc/brock200_2.txt";
-//	public static String pathFile="./src/doc/DSJC500_5.txt";
-//	public static String pathFile="./src/doc/gen400_p0.9_75.txt";//47/75
-//	public static String pathFile="./src/doc/hamming8-4.txt";//resultat parfait algo2
-//	public static String pathFile="./src/doc/keller4.txt";//resultat parfait algo2
-//	public static String pathFile="./src/doc/MANN_a27.txt";//125/126 algo2
-//	public static String pathFile="./src/doc/p_hat300-1.tkt";//resultat parfait algo2
-//	
+	
+
 	/**
 	 * @param args
 	 */
-	public static void launchAlgo()
+	public static void launchAlgo(String path)
 	{
+		result="";
+		String pathFile= path;
 		int nbProc = Runtime.getRuntime().availableProcessors();
 		int sizeGraphe = 0;
 		ReadFile readFile = new ReadFile();
@@ -45,6 +41,7 @@ public class GlobalAlgo
 		{
 			e.printStackTrace();
 		}
+		result+=readFile.getGraphe().toString();
 		System.err.println(readFile.getGraphe().toString());
 
 		long startTime = System.currentTimeMillis();
@@ -76,7 +73,14 @@ public class GlobalAlgo
 		allResult.lastEntry().getValue().display();
 		
 		long endTime = System.currentTimeMillis();
-		System.err.println("Algo execute en "+(endTime-startTime)+" ms");
+		algoTime=(endTime-startTime);
+		
+		result+="\n\nFile loaded in "+loadTime+" ms";
+		result+="\nAlgorithm executed "+algoTime+" ms";
+		result+="\nGlobal execution time "+(algoTime+loadTime)+" ms";
+		System.err.println("File loaded in "+loadTime+" ms");
+		System.err.println("Algorithm executed "+algoTime+" ms");
+		System.err.println("Global execution time "+(algoTime+loadTime)+" ms");
 	}
 	
 	

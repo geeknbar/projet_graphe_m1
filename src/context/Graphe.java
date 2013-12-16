@@ -65,7 +65,7 @@ public class Graphe
 	public String toString()
 	{
 		String grapheToAffiche="";
-		grapheToAffiche= "Graphe [Nombre Aretes = " + nbEdge + ", Nombre Sommet=" + allSommet.size() + "]";
+		grapheToAffiche= "Graph [Number of edges = " + nbEdge + ", Number of vertices = " + allSommet.size() + "]";
 		
 		return grapheToAffiche;
 	}
